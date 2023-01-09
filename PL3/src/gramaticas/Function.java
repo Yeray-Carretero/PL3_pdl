@@ -101,15 +101,19 @@ public class Function {
 		} else if (linea.contains("while")) {
 			accion = "while";
 			parametro1 = linea.substring(6,linea.indexOf(')'));
-			parametro2 = String.valueOf(bloqueCodigo.size());
+			parametro2 = String.valueOf(bloqueCodigo.size()-1);
 			bloqueCodigo.add(new Tripleta(accion,parametro1,parametro2));
 		} else if (linea.contains("exit")) {
 			accion = "exit";
 			bloqueCodigo.add(new Tripleta(accion));
 		} else if (linea.contains("if")) {
 			accion = "if";
-			parametro1 = linea.substring(6,linea.indexOf(')'));
-			bloqueCodigo.add(new Tripleta(accion,parametro1));
+			parametro1 = linea.substring(3, linea.indexOf(')'));
+			bloqueCodigo.add(new Tripleta(accion, parametro1));
+		}else if(linea.contains("return")){
+			accion = "return";
+			parametro1 = linea.substring(6);
+			bloqueCodigo.add(new Tripleta(accion, parametro1));
 		} else if (linea.contains("=")) {
 			accion = "asignar";
 			parametro1 = linea.substring(0,linea.indexOf('='));
@@ -148,7 +152,21 @@ public class Function {
 				parametro2 = linea.substring(linea.indexOf("="+1,linea.length()));
 				bloqueCodigo.add(new Tripleta(accion,parametro1, parametro2));
 			}
+		}else{
+			accion = "llamada";
+			parametro1 = linea.substring(0,linea.indexOf('('));
+			bloqueCodigo.add(new Tripleta(accion,parametro1));
 		}
+	}
+	public boolean variableExists(String variable){
+		if(variables.containsKey(variable)){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public void updateVariable(String variable, String valor){
+		variables.replace(variable,valor);
 	}
 	public int getTotalLineasCod(){
 		return this.bloqueCodigo.size();

@@ -58,6 +58,11 @@ public class Listener_Prueba extends GrammarpruebaParserBaseListener {
 	}
 
 	@Override
+	public void enterRetorno(GrammarpruebaParser.RetornoContext ctx) {
+		tablaSimbolos.getFuncionActual().addLineaCod(ctx.getText());
+	}
+
+	@Override
 	public void exitPrograma(GrammarpruebaParser.ProgramaContext ctx) {
 		tablaSimbolos.ejecutar(tablaSimbolos.getFuncionActual());
 	}
