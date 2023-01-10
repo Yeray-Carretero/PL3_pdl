@@ -724,6 +724,85 @@ public class TSimbolos {
 					ejecutar(getFuncion(parametro1));
 				} 
 			}
+			
+			else if(linea.getAccion().equals("asignar")) { // a = 3; a = 3 +5; a = 3-5
+				String nombreVar = linea.getParametro1(); //nombre de la variable
+				String valor = linea.getParametro2(); //el otro lado del igual
+				
+				if (!valor.equals("operacion")) {	//asignacion directa
+					funcionTemp.addVariable(nombreVar, valor);	//modificar su valor
+				}
+				else if (valor.equals("operacion")){	// a = b + 3; se le asigna el resultado de una operacion
+					continue; // +, 3, 5
+				}
+					
+			}
+			
+			else if (linea.getAccion().equals("+")) {     // +, 3, 5; +, 3.0, 5   -
+				String operando1 = linea.getParametro1();
+				String operando2 = linea.getParametro2();
+				
+				if (!((operando1.contains(".")) && (operando2.contains(".")))) {	//si los 2 son enteros -> rdo es entero
+					int rdo = Integer.parseInt(operando1) + Integer.parseInt(operando2);
+				}
+				else { //alguno no es entero -> rdo float
+					float rdo = Float.parseFloat(operando1) + Float.parseFloat(operando2);
+				}
+			}
+			
+			else if (linea.getAccion().equals("-")) {    
+				String operando1 = linea.getParametro1();
+				String operando2 = linea.getParametro2();
+				
+				if (!((operando1.contains(".")) && (operando2.contains(".")))) {	//si los 2 son enteros -> rdo es entero
+					int rdo = Integer.parseInt(operando1) - Integer.parseInt(operando2);
+				}
+				else { //alguno no es entero -> rdo float
+					float rdo = Float.parseFloat(operando1) - Float.parseFloat(operando2);
+				}
+			}else if (linea.getAccion().equals("*")) {     
+				String operando1 = linea.getParametro1();
+				String operando2 = linea.getParametro2();
+				
+				if (!((operando1.contains(".")) && (operando2.contains(".")))) {	//si los 2 son enteros -> rdo es entero
+					int rdo = Integer.parseInt(operando1) * Integer.parseInt(operando2);
+				}
+				else { //alguno no es entero -> rdo float
+					float rdo = Float.parseFloat(operando1) * Float.parseFloat(operando2);
+				}
+			}else if (linea.getAccion().equals("/")) {     
+				String operando1 = linea.getParametro1();
+				String operando2 = linea.getParametro2();
+				
+				float rdo = Float.parseFloat(operando1) / Float.parseFloat(operando2);
+				
+				if ((Float.parseFloat(operando1) % Float.parseFloat(operando2)==0)){
+					rdo = Math.round(rdo);
+				}
+				
+			}
+			else if (linea.getAccion().equals("%")) {
+				String operando1 = linea.getParametro1();
+				String operando2 = linea.getParametro2();
+				
+				if (!((operando1.contains(".")) && (operando2.contains(".")))) {	//si los 2 son enteros -> rdo es entero
+					int rdo = Integer.parseInt(operando1) % Integer.parseInt(operando2);
+				}
+				else { //alguno no es entero -> rdo float
+					float rdo = Float.parseFloat(operando1) % Float.parseFloat(operando2);
+				}
+				
+			}else if (linea.getAccion().equals("^")) {
+				String operando1 = linea.getParametro1();
+				String operando2 = linea.getParametro2();
+				
+				if (!((operando1.contains(".")) && (operando2.contains(".")))) {	//si los 2 son enteros
+					double rdo = Math.pow(Integer.parseInt(operando1), Integer.parseInt(operando2));
+				}
+				else { //alguno no es entero -> rdo float
+					double rdo = Math.pow(Float.parseFloat(operando1), Float.parseFloat(operando2));
+				}
+			}
 		}
 	}
 	
